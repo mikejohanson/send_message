@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'send_message'
-  s.version          = '1.0.1'
+  s.version          = '1.1.0'
   s.summary          = 'A Flutter plugin to Send SMS and MMS on iOS and Android.'
   s.description      = <<-DESC
 A Flutter plugin to Send SMS and MMS on iOS and Android. If iMessage is enabled it will send as iMessage on iOS. This plugin must be tested on a real device on iOS.
@@ -13,11 +13,10 @@ A Flutter plugin to Send SMS and MMS on iOS and Android. If iMessage is enabled 
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Navaghan Dabhi' => '@DabhiNavaghan' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'send_message/Sources/send_message/**/*.swift'
   s.dependency 'Flutter'
   s.platform = :ios, '13.0'
+  s.swift_version = '5.0'
 
-  # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
 end

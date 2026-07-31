@@ -32,25 +32,25 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> _sendSMS(List<String> recipients) async {
     try {
-      String _result = await sendSMS(
+      String result = await sendSMS(
         message: _controllerMessage.text,
         recipients: recipients,
         sendDirect: sendDirect,
       );
-      setState(() => _message = _result);
+      setState(() => _message = result);
     } catch (error) {
       setState(() => _message = error.toString());
     }
   }
 
   Future<bool> _canSendSMS() async {
-    bool _result = await canSendSMS();
+    bool result = await canSendSMS();
     setState(
-      () => _canSendSMSMessage = _result
+      () => _canSendSMSMessage = result
           ? 'This unit can send SMS'
           : 'This unit cannot send SMS',
     );
-    return _result;
+    return result;
   }
 
   Widget _phoneTile(String name) {

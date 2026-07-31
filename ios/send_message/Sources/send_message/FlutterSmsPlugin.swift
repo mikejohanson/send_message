@@ -2,13 +2,13 @@ import Flutter
 import UIKit
 import MessageUI
 
-public class SwiftFlutterSmsPlugin: NSObject, FlutterPlugin, UINavigationControllerDelegate, MFMessageComposeViewControllerDelegate {
+public class FlutterSmsPlugin: NSObject, FlutterPlugin, UINavigationControllerDelegate, MFMessageComposeViewControllerDelegate {
     var result: FlutterResult?
     var _arguments = [String: Any]()
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "send_message", binaryMessenger: registrar.messenger())
-    let instance = SwiftFlutterSmsPlugin()
+    let instance = FlutterSmsPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
