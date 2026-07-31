@@ -2,20 +2,29 @@ import Flutter
 import UIKit
 import MessageUI
 
-public class SwiftFlutterSmsPlugin: NSObject, FlutterPlugin, UINavigationControllerDelegate, MFMessageComposeViewControllerDelegate {
+public class FlutterSmsPlugin: NSObject, FlutterPlugin, UINavigationControllerDelegate, MFMessageComposeViewControllerDelegate {
     var result: FlutterResult?
     var _arguments = [String: Any]()
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "send_message", binaryMessenger: registrar.messenger())
-    let instance = SwiftFlutterSmsPlugin()
+    let instance = FlutterSmsPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "sendSMS":
-        _arguments = call.arguments as! [String : Any];
+        guard let arguments = call.arguments as? [String: Any] else {
+          result(FlutterError(
+              code: "bad_arguments",
+              message: "Invalid arguments for sendSMS.",
+              details: "Expected a map with 'message' and 'recipients' keys."
+            )
+          )
+          return
+        }
+        _arguments = arguments
       #if targetEnvironment(simulator)
         result(FlutterError(
             code: "message_not_sent",

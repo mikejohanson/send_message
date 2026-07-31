@@ -1,4 +1,4 @@
-package com.example.send_message
+package com.ioagra.send_message
 
 import android.annotation.TargetApi
 import android.app.Activity
