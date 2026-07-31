@@ -15,7 +15,16 @@ public class FlutterSmsPlugin: NSObject, FlutterPlugin, UINavigationControllerDe
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "sendSMS":
-        _arguments = call.arguments as! [String : Any];
+        guard let arguments = call.arguments as? [String: Any] else {
+          result(FlutterError(
+              code: "bad_arguments",
+              message: "Invalid arguments for sendSMS.",
+              details: "Expected a map with 'message' and 'recipients' keys."
+            )
+          )
+          return
+        }
+        _arguments = arguments
       #if targetEnvironment(simulator)
         result(FlutterError(
             code: "message_not_sent",

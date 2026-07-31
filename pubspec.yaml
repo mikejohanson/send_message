@@ -25,7 +25,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.example.send_message
+        package: com.ioagra.send_message
         pluginClass: FlutterSmsPlugin
       ios:
         pluginClass: FlutterSmsPlugin

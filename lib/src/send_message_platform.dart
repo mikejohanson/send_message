@@ -66,7 +66,7 @@ class FlutterSmsPlatform extends PlatformInterface {
     if (numbers.length == 1) {
       return launchSms(numbers.first, body);
     }
-    String _phones = numbers.join(';');
+    String _phones = numbers.map(_encodeNumber).join(';');
     if (body != null) {
       final _body = Uri.encodeComponent(body);
       return launch('sms:/open?addresses=$_phones${separator}body=$_body');
@@ -75,14 +75,17 @@ class FlutterSmsPlatform extends PlatformInterface {
   }
 
   Future<bool> launchSms(String? number, [String? body]) {
-    // ignore: parameter_assignments
-    number ??= '';
+    final _number = _encodeNumber(number ?? '');
     if (body != null) {
       final _body = Uri.encodeComponent(body);
-      return launch('sms:/$number${separator}body=$_body');
+      return launch('sms:/$_number${separator}body=$_body');
     }
-    return launch('sms:/$number');
+    return launch('sms:/$_number');
   }
 
   String get separator => isCupertino() ? '&' : '?';
+
+  /// `+` is valid in phone numbers, so restore it after encoding.
+  String _encodeNumber(String number) =>
+      Uri.encodeComponent(number).replaceAll('%2B', '+');
 }
